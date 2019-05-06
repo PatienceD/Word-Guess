@@ -17,4 +17,9 @@ function Word(wordParam) {
         return tmpString();
     }
 
+    this.wordGuess = function (letterToBeGuessed) {
+        newArry.forEach(function (element) {
+            element.guess(letterToBeGuessed);
+        });
+    }
 }
