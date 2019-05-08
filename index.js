@@ -1,23 +1,23 @@
 const Word = require("./word.js");
 const inquirer = require("inquirer");
 
-let wordsToGuess = ['Lincoln', 'Train Wreck', 'Disney', 'Tom and Jerry', 'Fly', 'Facebook', 'Hurricane', 'Marvel Universe', 'Hand Sanitizer', 'Paper Airplane'];
+let wordsToGuess = ['lincoln', 'train', 'disney', 'jerry', 'fly', 'facebook', 'hurricane', 'marvel', 'sanitizer', 'airplane', 'paper'];
 
-let guesses;
-let pickedWords;
 let word;
+let guessesLeft;
+let pickedWords;
 let pickedWord;
 
-function init() {
+function start() {
   pickedWords = [];
-  console.log("Hello, and welcome to Word Guess!");
+  console.log("Let's Play Word Guess!");
   console.log("------------------------------------------");
   playGame();
 }
 
 function playGame() {
   pickedWord = "";
-  guesses = 15;
+  guessesLeft = 15;
   if(pickedWords.length < wordsToGuess.length) {
     pickedWord = getWord();
   } else {
@@ -50,7 +50,7 @@ function makeGuess() {
       name: "guessedLetter",
       message: word.word() + 
               "\nGuess a letter!" +
-              "\nGuesses Left: " + guesses
+              "\nGuesses Left: " + guessesLeft
     }
   ])
   .then(data => {
@@ -59,16 +59,16 @@ function makeGuess() {
       checker.push(letter.guessedLetters());
     });
 
-    if(guesses > 0 && checker.indexOf("_ ") !== -1) {
-      guesses--;
-      if(guesses === 0) {
-        console.log("YOU RAN OUT OF GUESSES! THE ANSWER WAS " + pickedWord + ". GAME OVER!" );
+    if(guessesLeft > 0 && checker.indexOf("_ ") !== -1) {
+      guessesLeft--;
+      if(guessesLeft === 0) {
+        console.log("Wrong, the answer was " + pickedWord + ". GAME OVER!" );
         continuePrompt();
       } else {
         makeGuess();
       }
     } else {
-      console.log("CONGRATULATIONS! YOU GOT THE WORD!");
+      console.log("Great Job! You guessed the word! Try another one!");
       console.log(word.word());
       playGame();
     }
@@ -86,11 +86,11 @@ function continuePrompt() {
     ])
   .then(data => {
       if(data.continue === "Yes") {
-        init();
+        start();
       } else {
         console.log("Thanks for playing!");
       }
   });
 }
 
-init();
+start();

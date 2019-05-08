@@ -5,13 +5,9 @@ function Word(wordParam) {
     this.newArry = [];
 
     for (var i = 0; i < this.newWord.length; i++) {
-       // console.log(newWord.charAt(i));
         let newLetter = new Letter(this.newWord.charAt(i));
-        //console.log(newLetter);
         this.newArry.push(newLetter);
     }
-
-    //console.log(this.newArry.toString());
 
     this.word = function () {
         let tmpString = "";
